@@ -1,0 +1,62 @@
+[
+  {
+    "word": "said",
+    "options": ["sed","sad","said","sid"],
+    "level": "easy",
+    "pattern": "ai vowel"
+  },
+  {
+    "word": "was",
+    "options": ["was","waz","wus","vas"],
+    "level": "easy",
+    "pattern": "irregular vowel"
+  },
+  {
+    "word": "have",
+    "options": ["hav","have","haf","hev"],
+    "level": "easy",
+    "pattern": "silent e"
+  },
+  {
+    "word": "what",
+    "options": ["what","wot","wut","hwat"],
+    "level": "moderate",
+    "pattern": "wh sound"
+  },
+  {
+    "word": "come",
+    "options": ["kum","come","com","coom"],
+    "level": "moderate",
+    "pattern": "silent e"
+  },
+  {
+    "word": "some",
+    "options": ["sum","some","som","soum"],
+    "level": "moderate",
+    "pattern": "silent e"
+  },
+  {
+    "word": "they",
+    "options": ["thay","they","thee","thy"],
+    "level": "moderate",
+    "pattern": "th sound"
+  },
+  {
+    "word": "people",
+    "options": ["peeple","people","peopl","pepple"],
+    "level": "hard",
+    "pattern": "complex vowel"
+  },
+  {
+    "word": "friend",
+    "options": ["frend","friend","freind","frind"],
+    "level": "hard",
+    "pattern": "ie vowel"
+  },
+  {
+    "word": "thought",
+    "options": ["thot","thought","thort","thaut"],
+    "level": "hard",
+    "pattern": "ough sound"
+  }
+]

@@ -106,24 +106,30 @@ const Landing = () => {
           </p>
 
           {/* ✅ ADD cursor-target CLASS */}
-          <motion.button
-          
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate("/login")}
-            className="
-              cursor-target
-              px-12 py-4 rounded-full
-              bg-[#22442E]/80
-              backdrop-blur-md
-              text-white font-black text-lg
-              shadow-xl
-              hover:bg-[#22442E]/90
-              transition
-            "
-          >
-            Get Started
-          </motion.button>
+<motion.button
+  whileHover={{ 
+    scale: 1.06,
+    boxShadow: "0 0 40px rgba(34,68,46,0.9), 0 0 80px rgba(34,68,46,0.5)"
+  }}
+  whileTap={{ scale: 0.95 }}
+  onClick={() => navigate("/login")}
+  className="
+    cursor-target
+    px-20 py-7 rounded-xl
+    bg-[#22442E]/80
+    backdrop-blur-md
+    text-white font-black text-3xl tracking-wide
+    transition
+  "
+  style={{
+    boxShadow: "0 0 24px rgba(34,68,46,0.7), 0 4px 24px rgba(0,0,0,0.4)",
+    border: "1.5px solid rgba(255,255,255,0.2)",
+    textShadow: "0 1px 8px rgba(0,0,0,0.4)",
+    letterSpacing: "0.06em",
+  }}
+>
+  Get Started
+</motion.button>
         </motion.div>
       </div>
 
