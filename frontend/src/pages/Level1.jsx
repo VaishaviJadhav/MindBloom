@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import MirrorMatch from "./MirrorMatch";
+// import MirrorMatch from "./MirrorMatch";
 import SoundSafari from "./SoundSafari";
-import MemoryQuest from "./MemoryQuest";
+// import MemoryQuest from "./MemoryQuest";
 
 export default function Level1({ childId, onLevelComplete }) {
   const [currentChallenge, setCurrentChallenge] = useState(0);
@@ -11,21 +11,21 @@ export default function Level1({ childId, onLevelComplete }) {
   const [showComplete, setShowComplete] = useState(false);
 
   const challenges = [
-    {
-      id: 1,
-      name: "Mirror Match",
-      component: <MirrorMatch onComplete={() => next(10)} />
-    },
+    // {
+    //   id: 1,
+    //   name: "Mirror Match",
+    //   component: <MirrorMatch onComplete={() => next(10)} />
+    // },
     {
       id: 2,
       name: "Sound Safari",
       component: <SoundSafari onComplete={() => next(15)} />
-    },
-    {
-      id: 3,
-      name: "Memory Quest",
-      component: <MemoryQuest onComplete={() => next(20)} />
-    }
+     }
+    // {
+    //   id: 3,
+    //   name: "Memory Quest",
+    //   component: <MemoryQuest onComplete={() => next(20)} />
+    // }
   ];
 
   const next = (earnedXp) => {

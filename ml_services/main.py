@@ -19,6 +19,7 @@ try:
     model = joblib.load(os.path.join(BASE_DIR, "dyslexia_screening_model.pkl"))
     features = joblib.load(os.path.join(BASE_DIR, "dyslexia_features.pkl"))
     threshold = joblib.load(os.path.join(BASE_DIR, "dyslexia_threshold.pkl"))
+    scaler    = joblib.load('dyslexia_scaler.pkl')
     print("✅ Dyslexia screening model loaded successfully")
 except Exception as e:
     print(f"❌ Failed to load model assets: {e}")
@@ -71,7 +72,7 @@ def predict():
     if request.method == "OPTIONS":
         return jsonify({}), 200
 
-    if model is None or features is None or threshold is None:
+    if model is None or scaler is None or features is None or threshold is None:
         return jsonify({
             "error": "Model not loaded. Check server logs for missing .pkl files."
         }), 500
@@ -82,14 +83,37 @@ def predict():
         if not data:
             return jsonify({"error": "No input data provided"}), 400
 
+        # Auto-calculate Accuracy/Missrate from raw counts if not sent by frontend
+        def safe_ratio(num, den):
+            return num / den if den > 0 else 0.0
+
+        for i in range(1, 4):
+            clicks = data.get(f'Clicks{i}', 0)
+            hits   = data.get(f'Hits{i}', 0)
+            misses = data.get(f'Misses{i}', 0)
+            if f'Accuracy{i}' not in data:
+                data[f'Accuracy{i}'] = safe_ratio(hits, clicks)
+            if f'Missrate{i}' not in data:
+                data[f'Missrate{i}'] = safe_ratio(misses, clicks)
+
         # Convert input to DataFrame
         input_df = pd.DataFrame([data])
 
         # Ensure correct feature order & fill missing
         input_df = input_df.reindex(columns=features, fill_value=0).astype(float)
 
+        # ✅ Scale input (required by new model)
+        input_scaled = scaler.transform(input_df)
+
+        # Debug prints
+        print("🔍 FEATURES ORDER:", list(features))
+        print("🔍 INPUT VECTOR:", input_df.iloc[0].tolist())
+        print("🔍 INPUT DATA KEYS:", list(data.keys()))
+        print("🔍 SCALED VECTOR:", input_scaled[0].tolist())
+        print("🔍 PREDICT PROBA:", model.predict_proba(input_scaled)[0])
+
         # Predict probability
-        probability = model.predict_proba(input_df)[0, 1]
+        probability = model.predict_proba(input_scaled)[0, 1]
 
         # Risk interpretation
         if probability >= threshold:
@@ -106,7 +130,9 @@ def predict():
         })
 
     except Exception as e:
+        print(f"❌ Prediction error: {e}")
         return jsonify({"error": str(e)}), 500
+
 
 @app.route("/routes", methods=["GET"])
 def list_routes():
