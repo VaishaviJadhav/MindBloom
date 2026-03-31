@@ -487,44 +487,44 @@ export default function SoundSafari({ onComplete, childId }) {
     }
 
     // ── STEP 3: child_daily_scores ───────────────────────
-    console.log("\n── STEP 3: child_daily_scores ──");
-    const { data: existingDays, error: daysErr } = await supabase
-      .from("child_daily_scores")
-      .select("day_number")
-      .order("day_number", { ascending: false })
-      .limit(1);
+    // console.log("\n── STEP 3: child_daily_scores ──");
+    // const { data: existingDays, error: daysErr } = await supabase
+    //   .from("child_daily_scores")
+    //   .select("day_number")
+    //   .order("day_number", { ascending: false })
+    //   .limit(1);
 
-    if (daysErr) {
-      console.warn("⚠️ [child_daily_scores] Failed to fetch existing days:", daysErr.message);
-    }
-    console.log("📅 [child_daily_scores] existing days query result:", existingDays);
+    // if (daysErr) {
+    //   console.warn("⚠️ [child_daily_scores] Failed to fetch existing days:", daysErr.message);
+    // }
+    // console.log("📅 [child_daily_scores] existing days query result:", existingDays);
 
-    const dayNumber = existingDays?.length > 0 ? existingDays[0].day_number + 1 : 1;
-    console.log("📅 [child_daily_scores] using day_number:", dayNumber);
+    // const dayNumber = existingDays?.length > 0 ? existingDays[0].day_number + 1 : 1;
+    // console.log("📅 [child_daily_scores] using day_number:", dayNumber);
 
-    const dailyScoresPayload = {
-      child_id: cId,
-      day_number: dayNumber,
-      phonological_score: phonologicalScore,
-      overall_score: overallScore,
-      reaction_time: avgReactionTime,
-    };
-    console.log("📤 [child_daily_scores] inserting:", dailyScoresPayload);
+    // const dailyScoresPayload = {
+    //   child_id: cId,
+    //   day_number: dayNumber,
+    //   phonological_score: phonologicalScore,
+    //   overall_score: overallScore,
+    //   reaction_time: avgReactionTime,
+    // };
+    // console.log("📤 [child_daily_scores] inserting:", dailyScoresPayload);
 
-    const { error: scoresErr } = await supabase
-      .from("child_daily_scores")
-      .insert(dailyScoresPayload);
+    // const { error: scoresErr } = await supabase
+    //   .from("child_daily_scores")
+    //   .insert(dailyScoresPayload);
 
-    if (scoresErr) {
-      console.error("❌ [child_daily_scores] FAILED");
-      console.error("   code:", scoresErr.code);
-      console.error("   message:", scoresErr.message);
-      console.error("   details:", scoresErr.details);
-      console.error("   hint:", scoresErr.hint);
-      console.error("   full error:", scoresErr);
-    } else {
-      console.log(`✅ [child_daily_scores] saved! day_number: ${dayNumber}`);
-    }
+    // if (scoresErr) {
+    //   console.error("❌ [child_daily_scores] FAILED");
+    //   console.error("   code:", scoresErr.code);
+    //   console.error("   message:", scoresErr.message);
+    //   console.error("   details:", scoresErr.details);
+    //   console.error("   hint:", scoresErr.hint);
+    //   console.error("   full error:", scoresErr);
+    // } else {
+    //   console.log(`✅ [child_daily_scores] saved! day_number: ${dayNumber}`);
+    // }
 
     // ── STEP 4: predictions ──────────────────────────────
     console.log("\n── STEP 4: predictions ──");
@@ -679,7 +679,7 @@ export default function SoundSafari({ onComplete, childId }) {
       });
 
 
-      onComplete?.();
+      onComplete?.(r);
 
     } catch (err) {
       console.error("❌ [ML] submitToMLService failed:", err);
